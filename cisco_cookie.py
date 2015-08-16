@@ -14,9 +14,13 @@ print "MAC Address Type   (0xc3): 0x%x" % thout.popleft()
 maclen = thout.popleft()
 print "MAC Address Length (0x06): 0x%x" % maclen
 
-#bytes 0x04-0x09 MAC Address: 00 18 73 6d ad db
-#bytes 0x0a MAC Address Block Size Type (0x43): 43
-#bytes 0x0b-0x0c MAC Address Block Size: 00 0a
+pmac = "Main MAC: "
+for m in xrange(0,maclen):
+    pmac += "%x:" % thout.popleft()
+print pmac[:-1]
+
+print "MAC Address Block Size Type (0x43): 0x%x" % thout.popleft()
+print "Mac Address Block Size (00 0a): 0x%x" % (thout.popleft() * 256 + thout.popleft())
 #bytes 0x0d PCB Serial Number Type (0xc1): c1
 #bytes 0x0e PCB Serial Number Length (0x8b): 8b
 #bytes 0x0f-0x19 PCB Serial Number: 46 4f 43 30 39 34 38 31 34 4c 53 > Label SN: FOC094814LS
